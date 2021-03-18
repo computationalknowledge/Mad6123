@@ -14,3 +14,8 @@ insert into enrollments ('enrollmentid', 'studentid', 'classid') values ('2', '1
 insert into enrollments ('enrollmentid', 'studentid', 'classid') values ('3', '3', 'EmergTech204');
 insert into enrollments ('enrollmentid', 'studentid', 'classid') values ('4', '4', 'Csharp104');
 insert into enrollments ('enrollmentid', 'studentid', 'classid') values ('5', '4', 'Java101');
+
+select c.classid, c.classname, s.studentid, s.studentname
+from students as s, enrollments as e, classes as c 
+where s.studentid = e.studentid and 
+e.classid = c.classid
