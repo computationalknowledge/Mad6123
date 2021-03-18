@@ -1,18 +1,21 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
+// this code should display the contents of student table
 
-db.serialize(function() {
-  db.run("CREATE TABLE lorem (info TEXT)");
+const sqlite3 = require('sqlite3').verbose();
+// open the database
+let db = new sqlite3.Database('./CISMarch17.db');
 
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
+let sql = `SELECT * from students`;
+
+db.all(sql, [], (err, rows) => {
+  if (err) {
+    throw err;
   }
-  stmt.finalize();
-
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
+  rows.forEach((row) => {
+    console.log(row.studentid);
+    console.log(row.studentname);
+    
   });
 });
 
+// close the database connection
 db.close();
